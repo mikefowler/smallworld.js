@@ -1,0 +1,30 @@
+{
+  "name": "thumbnail-map",
+  "version": "0.1.0",
+  "description": "1. `sudo easy_install numpy` 2. `brew install gdal` 3. `ogr2ogr -f \"GeoJSON\" -lco COORDINATE_PRECISION=1 dist/countries.json src/ne_110m_land/ne_110m_land.shp`",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikefowler/map-thumbnails.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikefowler/map-thumbnails/issues"
+  },
+  "homepage": "https://github.com/mikefowler/map-thumbnails",
+  "devDependencies": {
+    "gulp": "~3.6.2",
+    "gulp-shell": "~0.2.4",
+    "gulp-uglify": "~0.2.1",
+    "gulp-browserify": "~0.5.0",
+    "gulp-clean": "~0.2.4",
+    "gulp-rename": "~1.2.0",
+    "gulp-eslint": "~0.1.6",
+    "gulp-gzip": "0.0.8",
+    "gulp-size": "~0.3.0"
+  }
+}

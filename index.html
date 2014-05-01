@@ -5,18 +5,19 @@
   <title>Demo</title>
 </head>
 <body>
-  
+
   <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-  <script src="app.js"></script>
+  <script src="dist/thumbnail.min.js"></script>
   <script type="text/javascript">
-  
-    var body = document.querySelector('body');
-    var map = new Map({
-      className: 'map'
-    });
-    
-    body.appendChild(map.el);
-  
+    var thumbnail = new Thumbnail(document.body, { width: 600 });
+  	thumbnail.point(37.757719928168605, -122.43760000000003); // SF
+  	thumbnail.point(40.705960705452846, -73.9780035); // NYC
+  	thumbnail.point(51.528868434293145, -0.10159864999991441); // London
+  	thumbnail.point(-33.91614132915682, 18.656059400000004); // Capetown
+    thumbnail.point(-33.797733275589174, 150.92243254999994); // Sydney
+    thumbnail.point(-50.7922939127225, -71.2650654500000); // South America
+    thumbnail.point(-63.860035895395306, -57.65625); // Antartica
+  	thumbnail.point(83.44032649527307, -34.8046875); // Greenland
   </script>
   
 </body>
