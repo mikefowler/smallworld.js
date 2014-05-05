@@ -1,6 +1,6 @@
 # Current status
 
-Working decent. Hard part is done.
+Coming together.
 
 # Building
 

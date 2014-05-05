@@ -28,11 +28,15 @@ gulp.task('geojson', function () {
 		]));
 });
 
-gulp.task('scripts', function () {
+gulp.task('browserify', function () {
 	return gulp.src('src/thumbnail.js')
-		.pipe(browserify({ standalone: 'Thumbnail' }))
+		.pipe(browserify({ standalone: 'Thumbnail', debug: false }))
 		.pipe(size({ title: 'UNCOMPRESSED:' }))
-		.pipe(gulp.dest(paths.dist))
+		.pipe(gulp.dest(paths.dist));
+});
+
+gulp.task('dist', function () {
+	return gulp.src(paths.dist + '/thumbnail.js')
 		.pipe(rename('thumbnail.min.js'))
 		.pipe(uglify())
 		.pipe(size({ title: 'MINIFIED:' }))
@@ -49,7 +53,8 @@ gulp.task('lint', function () {
 	return gulp.src('src/**/*.js')
 		.pipe(eslint({
 			rules: {
-				quotes: 'single' 
+				'quotes': 'single',
+				'no-global-strict': 0
 			},
 			globals: {
 				'require': true,
@@ -66,9 +71,9 @@ gulp.task('lint', function () {
 // Tasks
 // -----------------------------------------------------------------------------
 gulp.task('watch', function () {
-	gulp.watch('src/**/*.js', ['build']);
+	gulp.watch('src/**/*.js', ['test', 'browserify']);
 });
 
 gulp.task('test', ['lint']);
-gulp.task('build', ['scripts']);
-gulp.task('default', ['test', 'build', 'watch']);
+gulp.task('build', ['browserify', 'dist']);
+gulp.task('default', ['test', 'browserify', 'watch']);
