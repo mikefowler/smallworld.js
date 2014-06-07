@@ -7,6 +7,7 @@ var size = require('gulp-size');
 var sass = require('gulp-sass');
 var header = require('gulp-header');
 var markdown = require('gulp-markdown');
+var plumber = require('gulp-plumber');
 
 // -----------------------------------------------------------------------------
 // Configuration
@@ -34,7 +35,7 @@ var banner = [
 gulp.task('geojson', function () {
 	gulp.src('vendor/ne_110m_land/ne_110m_land.shp')
 		.pipe(shell([
-			'rm -f src/countries.json',
+			'rm -f assets/world.json',
 			'ogr2ogr -f "GeoJSON" -lco COORDINATE_PRECISION=1 -simplify 0.4 demo/world.json <%= file.path %>'
 		]));
 });
@@ -53,6 +54,7 @@ gulp.task('dist', function () {
 gulp.task('docs', function () {
 	
 	gulp.src('assets/style.scss')
+		.pipe(plumber())
 		.pipe(sass())
 		.pipe(gulp.dest('assets'));
 

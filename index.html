@@ -5,75 +5,171 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="assets/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/prism.css">
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,400,900' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-	<header class="masthead bucket">
-		<h1>smallworld.js</h1>
-		<h2>A small utility for generating small world maps.</h2>
+	<header class="masthead">
+		<div class="bucket masthead__bucket">
+			<div class="masthead__logo js-logo"></div>
+			<div class="masthead__copy">
+				<h1>smallworld.js</h1>
+				<h2>It's a (small utility for generating a) small world.</h2>
+				<a href="http://github.com/mikefowler/smallworld.js" class="masthead__btn btn btn-small">View on Github</a>
+			</div>
+		</div>
 	</header>
 
-	<main>
+	<main class="content bucket">
 
-		<div class="intro bucket">
-			<p>Why?</p>
+		<p><em>smallworld.js</em> is a utility for generating map overviews using GeoJSON and HTML Canvas. It was created out of a need to render simple map previews, quickly and efficiently, without strict Terms of Use and without heavy client libraries.</p>
 
-			<ul>
-				<li>No heavy client libraries</li>
-				<li>No tile downloads</li>
-				<li>No license restrictions</li>
-				<li>Speedy canvas rendering</li>
-				<li>B.Y.O.G. (Bring Your Own GeoJSON)</li>
-			</ul>
+		<p>The utility has no dependencies, weighs ~5kb (sans GeoJSON), and also comes with a simple wrapper to use with jQuery or Zepto.</p>
 
-			<h3>Default</h3>
+		<!-- DEFAULT -->
 
-			<p>Just pass in your GeoJSON source and you're done.</p>
+		<h3>Default</h3>
 
-		</div>
+		<p>Just pass in your GeoJSON source and you're done. By default, maps are centered at [0, 0]. The map will inherit its size from the DOM element you initialize it with. If you're using the same GeoJSON for all of your maps, you can also set the data source as a default.</p>
 
 		<div class="example">
-			<div class="bucket example__bucket clear">
+			<div class="example__map">
+				<div class="map js-basic"></div>
+			</div>
 
-				<div class="example__map">
-					<div class="map map-basic js-basic"></div>
-				</div>
-
-				<div class="example__code">
-					<pre><code class="language-javascript">$('.js-basic').smallworld({
+			<div class="example__code">
+				<pre><code class="language-javascript">$('.map').smallworld({
 	geojson: data
-});</code></pre>
-				</div>
+});
 
+// OR…
+
+Smallworld.defaults.geojson = data;
+$('.map').smallworld();
+</code></pre>
 			</div>
 		</div>
 
-		<div class="bucket">
-			<h3>Custom Colors</h3>
-			<p>Maps are rendered using native canvas elements, so setting custom colors for everything is easy.</p>
-		</div>
+		<!-- CENTER & ZOOM -->
+
+		<h3>Center &amp; Zoom</h3>
+		
+		<p>Maps can be centered on any geographic coordinate, as well as zoomed. The default zoom level is set to 0.</p>
 		
 		<div class="example">
-			<div class="bucket example__bucket clear">
+			<div class="example__map">
+				<div class="map js-centered"></div>
+			</div>
 
-				<div class="example__map">
-					<div class="map map-colors js-colors"></div>
-				</div>
-
-				<div class="example__code">
-					<pre><code class="language-javascript">$('.js-colors').smallworld({
+			<div class="example__code">
+				<pre><code class="language-javascript">$('.map').smallworld({
 	geojson: data,
-	waterColor: '#acbcc9',
-	landColor: '#f2e5d4'
+	zoom: 1,
+	center: [37.757719928168605, -122.43760000000003]
 });</code></pre>
-				</div>
-
 			</div>
 		</div>
+
+		<!-- COLORS -->
+
+		<h3>Colors</h3>
+		
+		<p>Maps are rendered using native canvas elements, so changing the color of anything is easy.</p>
+		
+		<div class="example">
+			<div class="example__map">
+				<div class="map js-colors"></div>
+			</div>
+
+			<div class="example__code">
+				<pre><code class="language-javascript">$('.map').smallworld({
+	geojson: data,
+	center: [45, 0],
+	waterColor: '#021019',
+	landColor: '#08304b'
+});</code></pre>
+			</div>
+		</div>
+
+		<!-- MARKERS -->
+
+		<h3>Markers</h3>
+		
+		<p>You can easily drop markers on the center of the map, or anywhere else by passing in additional coordinates. Markers can also have a custom size and color.</p>
+
+		<div class="example">
+			<div class="example__map">
+				<div class="map js-marker-center"></div>
+			</div>
+
+			<div class="example__code">
+				<pre><code class="language-javascript">$('.map').smallworld({
+	geojson: data,
+	marker: true,
+	markerColor: '#fa29df'
+});</code></pre>
+			</div>
+		</div>
+
+		<div class="example">
+			<div class="example__map">
+				<div class="map js-marker-custom"></div>
+			</div>
+
+			<div class="example__code">
+				<pre><code class="language-javascript">$('.map').smallworld({
+	geojson: data,
+	center: [45, 180],
+	marker: [37.757719928168605, -122.43760000000003],
+	markerSize: 8
+});</code></pre>
+			</div>
+		</div>
+
+		<div class="example">
+			<div class="example__map">
+				<div class="map js-marker-multi"></div>
+			</div>
+
+			<div class="example__code">
+				<pre><code class="language-javascript">$('.map').smallworld({
+	geojson: data,
+	center: [45, -50],
+	markers: [
+		[37.757719928168605, -122.43760000000003],
+		[51.528868434293145, -0.10159864999991441],
+		[40.705960705452846, -73.9780035]
+	],
+	markerSize: 8
+});</code></pre>
+			</div>
+		</div>
+
+		<!-- STANDALONE -->
+
+		<h3>Using without jQuery/Zepto</h3>
+
+		<p>To use smallworld.js without jQuery or Zepto, initialize it with a DOM element and options.</p>
+
+		<pre><code class="language-javascript">var el = document.querySelector('.map');
+var map = new Smallworld(el, options);</code></pre>
+
+		<!-- GEOJSON -->
+
+		<h3>GeoJSON &amp; Technical Notes</h3>
+
+		<p>smallworld.js provides <a href="https://github.com/mikefowler/smallworld.js/blob/master/assets/world.json">one drop-in GeoJSON source</a>, the one used in the maps above. The GeoJSON data can be inlined or loaded asynchronously, so long as the data is passed in during initialization or set globally.</p>
+
+		<p>This GeoJSON is generated from <a href="http://naturalearthdata.com">Natural Earth's</a> “Small-scale data, 1:110m” data set. The shape files provided by Natural Earth's are then processed by <a href="http://www.gdal.org/ogr2ogr.html">ogr2ogr</a> to convert to GeoJSON and simplify paths. You can see this conversion yourself by peeking at this <a href="https://github.com/mikefowler/smallworld.js/blob/master/gulpfile.js#L35">build task</a>. To generate your own GeoJSON with a different level of optimization, play around with the value passed in the “simplify” flag in the build task.</p>
+
+		<p>In an effort to keep file size low, the GeoJSON source provided here has been optimized for viewing at zoom levels 0 and 1. While it's theoretically possible to crank the zoom level up infinitely, at a certain point, beyond zoom level 3 or 4, this utility won't be of much use as the maps will become too abstract.</p>
 
 	</main>
 
-	<script src="//code.jquery.com/jquery-2.0.3.js"></script>
+	<footer class="footer">A thing made by <a href="http://mikefowler.me">Mike Fowler</a></footer>
+
+	<!-- <script src="//code.jquery.com/jquery-2.0.3.js"></script> -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/zepto/1.1.3/zepto.min.js"></script>
 
   <script src="dist/smallworld.js"></script>
   <script src="dist/smallworld.jquery.js"></script>

@@ -1,4 +1,28 @@
-$color-slate-grey: #f1f1f1;
+$color-sky-blue: #32c1f6;
+$color-slate-grey: #efefef;
+
+%clear {
+	&::after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+}
+
+%font-light {
+	font-family: 'Lato', 'HelveticaNeue-UltraLight', sans-serif;
+	font-weight: 100;
+}
+
+%font-regular {
+	font-family: 'Lato', 'HelveticaNeue-Regular', sans-serif;
+  font-weight: 400;
+}
+
+%font-bold {
+	font-family: 'Lato', 'HelveticaNeue-Bold', sans-serif;
+  font-weight: 900;
+}
 
 * {
 	-moz-box-sizing: border-box;
@@ -6,15 +30,32 @@ $color-slate-grey: #f1f1f1;
 }
 
 body {
-  background: $color-slate-grey;
-  font-family: sans-serif;
+  @extend %font-regular;
+  font-size: 112.5%;
   margin: 0;
   padding: 0;
 }
 
-ul, ol {
-	margin: 0;
-	padding: 0;
+h1, h2, h3 {
+	@extend %font-bold;
+	text-transform: uppercase;
+}
+
+a {
+	color: $color-sky-blue;
+	transition: color 0.25s ease;
+
+	&:hover { color: darken($color-sky-blue, 20%); }
+}
+
+p {
+	max-width: 480px;
+	max-width: 40rem;
+}
+
+::selection {
+	background-color: $color-sky-blue;
+	color: white;
 }
 
 // ----------------------------------------------------------------------------
@@ -24,16 +65,8 @@ ul, ol {
 .bucket {
 	margin-left: auto;
 	margin-right: auto;
-	max-width: 800px;
-	max-width: 50rem;
-}
-
-.clear {
-	&::after {
-		content: '';
-		display: table;
-		clear: both;
-	}
+	max-width: 960px;
+	max-width: 60rem;
 }
 
 // ----------------------------------------------------------------------------
@@ -41,9 +74,62 @@ ul, ol {
 // ----------------------------------------------------------------------------
 
 .masthead {
+	background: $color-sky-blue;
+	color: white;
+	padding: 1em 0;
 
-	
+	a {
+		color: white;
+	}
+		
+	h1, h2 {
+		@extend %font-light;
+	}	
 
+	h1 {
+		margin: 0;
+		font-size: 56px;
+		font-size: 3.5rem;
+		line-height: 1;
+	}
+
+	h2 {
+		margin-top: 0;
+		font-size: 16px;
+		font-size: 1.25rem;
+		text-transform: none;
+	}
+}
+
+.masthead__copy {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.masthead__logo {
+	position: relative;
+	display: inline-block;
+	height: 90px;
+	width: 90px;
+	margin-right: 1em;
+	vertical-align: middle;
+	border-radius: 45px;
+	overflow: hidden;
+
+	// Ugliest hack of all time. Forces “overflow: hidden”
+	// to respect border-radius with absolutely
+	// positioned children.
+	-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+}
+
+.masthead__btn {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.masthead__bucket {
+	position: relative;
 }
 
 // ----------------------------------------------------------------------------
@@ -51,24 +137,24 @@ ul, ol {
 // ----------------------------------------------------------------------------
 
 .example {
-	background: white;
-}
-
-.example__bucket {
+	@extend %clear;
 	position: relative;
+	margin: 1em 0;
+
+	> * {
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: -4px;
+	}
 }
 
 .example__map {
-	width: 50%;
-	padding: 2em;
-	float: left;
+	padding-right: 2em;
+	width: 40%;
 }
 
 .example__code {
-	width: 50%;
-	height: 100%;
-	position: absolute;
-	right: 0;
+	width: 60%;
 
 	> * {
 		height: 100%;
@@ -80,8 +166,41 @@ ul, ol {
 // ----------------------------------------------------------------------------
 
 .map {
-  width: 100%;
+  width: 300px;
   height: 150px;
   margin: 0 auto;
  	position: relative;
+}
+
+// ----------------------------------------------------------------------------
+// Footer
+// ----------------------------------------------------------------------------
+
+.footer {
+	border-top: 1px solid $color-slate-grey;
+	padding: 2em 0;
+	text-align: center;
+}
+
+
+// ----------------------------------------------------------------------------
+// Buttons
+// ----------------------------------------------------------------------------
+
+.btn {
+	@extend %font-light;
+	text-decoration: none;
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	border-radius: 5px;
+	padding: 0.5em;
+	transition: border 0.25s ease;
+
+	&:hover {
+		border-color: white;
+	}
+}
+
+.btn-small {
+	font-size: 16px;
+	font-size: 1rem;
 }
