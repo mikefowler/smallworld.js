@@ -5,10 +5,10 @@
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory);
   } else {
-    factory(window.jQuery || window.Zepto, window.Mapstract);
+    factory(window.jQuery || window.Zepto, window.Smallworld);
   }
 
-}(function ($, Mapstract) {
+}(function ($, Smallworld) {
 
   'use strict';
 
@@ -18,13 +18,13 @@
 
   $.extend($.fn, {
 
-    mapstract: function (options) {
+    smallworld: function (options) {
 
-      var opts = $.extend({}, $.fn.mapstract.defaults, options);
+      var opts = $.extend({}, $.fn.smallworld.defaults, options);
 
       return this.each(function () {
 
-        $(this).data('mapstract', new Mapstract(this, opts));
+        $(this).data('smallworld', new Smallworld(this, opts));
         return this;
 
       });
@@ -37,6 +37,6 @@
   // Define default plugin options. 
   // --------------------------------------------------------------------------
   
-  $.fn.mapstract.defaults = {};
+  $.fn.smallworld.defaults = {};
 
 }));

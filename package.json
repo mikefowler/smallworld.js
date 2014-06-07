@@ -1,18 +1,18 @@
 {
-  "name": "thumbnail-map",
+  "name": "smallworld.js",
   "version": "0.1.0",
-  "description": "A little utility for generating little maps of the world.",
+  "description": "A small utility for generating small world maps.",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/mikefowler/map-thumbnails.git"
+    "url": "git://github.com/mikefowler/smallworld.js.git"
   },
   "author": "Mike Fowler <mike@mikefowler.me>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mikefowler/map-thumbnails/issues"
+    "url": "https://github.com/mikefowler/smallworld.js/issues"
   },
-  "homepage": "https://github.com/mikefowler/map-thumbnails",
+  "homepage": "https://github.com/mikefowler/smallworld.js",
   "devDependencies": {
     "gulp": "~3.6.2",
     "gulp-shell": "~0.2.4",

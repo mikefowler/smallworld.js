@@ -1,9 +1,9 @@
 {
-  "name": "map-thumbnails",
+  "name": "smallworld.js",
   "version": "0.1.0",
-  "description": "A little utility for generating little maps of the world.",
+  "description": "A small utility for generating small world maps.",
   "homepage": "https://github.com/mikefowler/map-thumbnails",
-  "main": "dist/mapstract.min.js",
+  "main": "dist/smallworld.min.js",
   "authors": [
     "Mike Fowler <mike@mikefowler.me>"
   ],

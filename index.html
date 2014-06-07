@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Mapstract</title>
+	<title>smallworld.js</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="assets/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/prism.css">
@@ -9,8 +9,8 @@
 <body>
 
 	<header class="masthead bucket">
-		<h1>Mapstract</h1>
-		<h2>A little utility for generating little maps of the world.</h2>
+		<h1>smallworld.js</h1>
+		<h2>A small utility for generating small world maps.</h2>
 	</header>
 
 	<main>
@@ -40,12 +40,8 @@
 				</div>
 
 				<div class="example__code">
-					<pre><code class="language-javascript">$(function () {
-	
-	$('.js-basic').mapstract({
-		geojson: data
-	});
-
+					<pre><code class="language-javascript">$('.js-basic').smallworld({
+	geojson: data
 });</code></pre>
 				</div>
 
@@ -65,14 +61,10 @@
 				</div>
 
 				<div class="example__code">
-					<pre><code class="language-javascript">$(function () {
-	
-	$('.js-basic').mapstract({
-		geojson: data,
-		waterColor: '#acbcc9',
-		landColor: '#f2e5d4'
-	});
-
+					<pre><code class="language-javascript">$('.js-colors').smallworld({
+	geojson: data,
+	waterColor: '#acbcc9',
+	landColor: '#f2e5d4'
 });</code></pre>
 				</div>
 
@@ -83,8 +75,8 @@
 
 	<script src="//code.jquery.com/jquery-2.0.3.js"></script>
 
-  <script src="dist/mapstract.js"></script>
-  <script src="dist/mapstract.jquery.js"></script>
+  <script src="dist/smallworld.js"></script>
+  <script src="dist/smallworld.jquery.js"></script>
 
   <script src="assets/prism.js"></script>
   <script src="assets/app.js"></script>

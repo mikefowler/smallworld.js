@@ -2,11 +2,11 @@
 
   'use strict';
 
-  // Set up Mapstract for the appropriate environment. First AMD…
+  // Set up Smallworld for the appropriate environment. First AMD…
   if (typeof define === 'function' && define.amd) {
     
     define(['exports'], function (exports) {
-      root.Mapstract = factory(root, exports);
+      root.Smallworld = factory(root, exports);
     });
 
   // Next, for Node.js and CommonJS.
@@ -17,7 +17,7 @@
   // Finally, as a browser global
   } else {
     
-    root.Mapstract = factory(root);
+    root.Smallworld = factory(root);
  
   }
 
@@ -63,17 +63,17 @@
   };
 
   // --------------------------------------------------------------------------
-  // Mapstract
+  // Smallworld
   // --------------------------------------------------------------------------
   
-  var Mapstract = function (el, options) {
+  var Smallworld = function (el, options) {
 
     if (!el) {
-      throw new Error('A DOM element is required for Mapstract to initialize');
+      throw new Error('A DOM element is required for Smallworld to initialize');
     }
 
     if (!options.geojson) {
-      throw new Error('A GeoJSON source is required for Mapstract to initialize');
+      throw new Error('A GeoJSON source is required for Smallworld to initialize');
     }
 
     this.el = el;
@@ -84,7 +84,7 @@
 
   };
 
-  Mapstract.prototype = {
+  Smallworld.prototype = {
 
     initialize: function () {
           
@@ -93,7 +93,7 @@
       this.height = this.el.clientHeight;
 
       // Generate a map tile that we'll use to create our map
-      this.tile = new Mapstract.Tile(this.options);
+      this.tile = new Smallworld.Tile(this.options);
 
       // Create the map element
       this.map = this.createMap(this.width, this.height);
@@ -118,7 +118,7 @@
     },
 
     getTile: function () {
-      return new Mapstract.Tile(arguments);
+      return new Smallworld.Tile(arguments);
     },
 
     resize: function () {
@@ -167,15 +167,15 @@
   };
 
   // --------------------------------------------------------------------------
-  // Mapstract.Tile
+  // Smallworld.Tile
   // --------------------------------------------------------------------------
   
-  Mapstract.Tile = function (options) {
+  Smallworld.Tile = function (options) {
     this.options = extend(options || {}, defaults);
     this.initialize.apply(this);
   };
 
-  Mapstract.Tile.prototype = {
+  Smallworld.Tile.prototype = {
 
     initialize: function () {
 
@@ -267,7 +267,7 @@
     },
 
     projectCoordinate: function (latitude, longitude) {
-      var point = Mapstract.Projection.mercator(latitude, longitude);
+      var point = Smallworld.Projection.mercator(latitude, longitude);
       point.x = point.x * this.scale;
       point.y = point.y * this.scale;
       return point;
@@ -289,10 +289,10 @@
   };
 
   // --------------------------------------------------------------------------
-  // Mapstract.Projection
+  // Smallworld.Projection
   // --------------------------------------------------------------------------
 
-  Mapstract.Projection = {
+  Smallworld.Projection = {
 
     RADIUS: 6378137,
 
@@ -312,6 +312,6 @@
 
   };
 
-  return Mapstract;
+  return Smallworld;
 
 }));
