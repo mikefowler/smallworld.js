@@ -4,6 +4,9 @@
 
 Getting there. Documentation incomplete, and still some API additions to make.
 
+* Mapstract
+* Geodigest
+
 ## Overview
 
 A standalone JavaScript tool to generate world-level map thumbnails using GeoJSON and `<canvas>`.
@@ -42,7 +45,7 @@ To re-generate the `countries.json` file from the Natural Earth Data source file
 
 Map math is tough, and I wouldn't have been able to hack this together without a bunch of great resources along the way:
 
-* http://blog.thematicmapping.org/2012/11/how-to-minify-geojson-files.html
-* http://www.naturalearthdata.com/
-* http://www.gdal.org/ogr2ogr.html
-* https://github.com/afar/robinson_projection
+* [How to Minify GeoJSON Files](http://blog.thematicmapping.org/2012/11/how-to-minify-geojson-files.html)
+* [Natural Earth](http://www.naturalearthdata.com/)
+* [OGR2OGR](http://www.gdal.org/ogr2ogr.html)
+* [Spherical Mercator Projection (via Leaflet)](https://github.com/Leaflet/Leaflet/blob/master/src/geo/projection/Projection.SphericalMercator.js)

@@ -1,0 +1,15 @@
+sass:
+  sass_dir: _assets/sass
+  style: :compressed
+
+exclude: [
+  'src',
+  'vendor',
+  'node_modules',
+  'bower.json',
+  'Gemfile',
+  'Gemfile.lock',
+  'gulpfile.js',
+  'package.json',
+  'README.md'
+]

@@ -1,0 +1,19 @@
+---
+---
+
+$color-slate-grey: #f1f1f1;
+
+body {
+  background: $color-slate-grey;
+  margin: 0 auto;
+  max-width: 40em;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.map-default {
+  width: 300px;
+  height: 250px;
+  margin: 0 auto;
+  position: relative;
+}

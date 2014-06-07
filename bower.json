@@ -1,0 +1,22 @@
+{
+  "name": "map-thumbnails",
+  "version": "0.1.0",
+  "homepage": "https://github.com/mikefowler/map-thumbnails",
+  "main": "dist/mapstract.min.js",
+  "authors": [
+    "Mike Fowler <mike@mikefowler.me>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor",
+    "Gemfile",
+    "Gemfile.lock",
+    "index.md",
+    "_layouts",
+    "_assets",
+    "_config.yml",
+    "gulpfile.js"
+  ]
+}

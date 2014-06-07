@@ -1,20 +1,31 @@
 var gulp = require('gulp');
 var shell = require('gulp-shell');
 var uglify = require('gulp-uglify');
-var clean = require('gulp-clean');
-var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
 var eslint = require('gulp-eslint');
-var gzip = require('gulp-gzip');
 var size = require('gulp-size');
+var sass = require('gulp-sass');
+var header = require('gulp-header');
+var markdown = require('gulp-markdown');
 
 // -----------------------------------------------------------------------------
 // Configuration
 // -----------------------------------------------------------------------------	
 
+var pkg = require('./package.json');
+
 var paths = {
+	src: 'src/*.js',
 	dist: 'dist'
 };
+
+var banner = [
+	'// <%= pkg.name %> - <%= pkg.description %>',
+	'// @version v<%= pkg.version %>',
+	'// @link <%= pkg.homepage %>',
+	'// @license <%= pkg.license %>',
+	''
+].join('\n');
 
 // -----------------------------------------------------------------------------
 // Assets
@@ -23,27 +34,32 @@ var paths = {
 gulp.task('geojson', function () {
 	gulp.src('vendor/ne_110m_land/ne_110m_land.shp')
 		.pipe(shell([
-			'rm src/countries.json',
-			'ogr2ogr -f "GeoJSON" -lco COORDINATE_PRECISION=1 src/countries.json <%= file.path %>'
+			'rm -f src/countries.json',
+			'ogr2ogr -f "GeoJSON" -lco COORDINATE_PRECISION=1 -simplify 0.4 demo/world.json <%= file.path %>'
 		]));
 });
 
-gulp.task('browserify', function () {
-	return gulp.src('src/thumbnail.js')
-		.pipe(browserify({ standalone: 'Thumbnail', debug: false }))
-		.pipe(size({ title: 'UNCOMPRESSED:' }))
+gulp.task('dist', function () {
+	return gulp.src(paths.src)
+		.pipe(size({ title: 'Uncompressed' }))
+		.pipe(gulp.dest(paths.dist))
+		.pipe(rename({ suffix: '.min' }))
+		.pipe(uglify())
+		.pipe(header(banner, { pkg: pkg }))
+		.pipe(size({ title: 'Minified' }))
 		.pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('dist', function () {
-	return gulp.src(paths.dist + '/thumbnail.js')
-		.pipe(rename('thumbnail.min.js'))
-		.pipe(uglify())
-		.pipe(size({ title: 'MINIFIED:' }))
-		.pipe(gulp.dest(paths.dist))
-		.pipe(gzip({ append: true }))
-		.pipe(size({ title: 'GZIP:' }))
-		.pipe(gulp.dest(paths.dist));
+gulp.task('docs', function () {
+	
+	gulp.src('demo/style.scss')
+		.pipe(sass())
+		.pipe(gulp.dest('demo'));
+
+	gulp.src('demo/index.md')
+		.pipe(markdown())
+		.pipe(gulp.dest('./'));
+
 });
 
 // -----------------------------------------------------------------------------
@@ -58,7 +74,9 @@ gulp.task('lint', function () {
 			},
 			globals: {
 				'require': true,
-				'module': true
+				'module': true,
+				'define': true,
+				'exports': true
 			},
 			env: {
 				browser: true
@@ -71,9 +89,10 @@ gulp.task('lint', function () {
 // Tasks
 // -----------------------------------------------------------------------------
 gulp.task('watch', function () {
-	gulp.watch('src/**/*.js', ['test', 'browserify']);
+	gulp.watch('src/**/*.js', ['build']);
+	gulp.watch('demo/*.*', ['docs']);
 });
 
 gulp.task('test', ['lint']);
-gulp.task('build', ['browserify', 'dist']);
-gulp.task('default', ['test', 'browserify', 'watch']);
+gulp.task('build', ['test', 'dist']);
+gulp.task('default', ['build', 'docs', 'watch']);
