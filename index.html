@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mapstract</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="assets/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/prism.css">
+</head>
+<body>
+
+	<header class="masthead bucket">
+		<h1>Mapstract</h1>
+		<h2>A little utility for generating little maps of the world.</h2>
+	</header>
+
+	<main>
+
+		<div class="intro bucket">
+			<p>Why?</p>
+
+			<ul>
+				<li>No heavy client libraries</li>
+				<li>No tile downloads</li>
+				<li>No license restrictions</li>
+				<li>Speedy canvas rendering</li>
+				<li>B.Y.O.G. (Bring Your Own GeoJSON)</li>
+			</ul>
+
+			<h3>Default</h3>
+
+			<p>Just pass in your GeoJSON source and you're done.</p>
+
+		</div>
+
+		<div class="example">
+			<div class="bucket example__bucket clear">
+
+				<div class="example__map">
+					<div class="map map-basic js-basic"></div>
+				</div>
+
+				<div class="example__code">
+					<pre><code class="language-javascript">$(function () {
+	
+	$('.js-basic').mapstract({
+		geojson: data
+	});
+
+});</code></pre>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="bucket">
+			<h3>Custom Colors</h3>
+			<p>Maps are rendered using native canvas elements, so setting custom colors for everything is easy.</p>
+		</div>
+		
+		<div class="example">
+			<div class="bucket example__bucket clear">
+
+				<div class="example__map">
+					<div class="map map-colors js-colors"></div>
+				</div>
+
+				<div class="example__code">
+					<pre><code class="language-javascript">$(function () {
+	
+	$('.js-basic').mapstract({
+		geojson: data,
+		waterColor: '#acbcc9',
+		landColor: '#f2e5d4'
+	});
+
+});</code></pre>
+				</div>
+
+			</div>
+		</div>
+
+	</main>
+
+	<script src="//code.jquery.com/jquery-2.0.3.js"></script>
+
+  <script src="dist/mapstract.js"></script>
+  <script src="dist/mapstract.jquery.js"></script>
+
+  <script src="assets/prism.js"></script>
+  <script src="assets/app.js"></script>
+
+</body>
+</html>

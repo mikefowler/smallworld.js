@@ -97,6 +97,7 @@
 
       // Create the map element
       this.map = this.createMap(this.width, this.height);
+      this.context = this.map.getContext('2d');
 
       // Append the map element
       this.el.appendChild(this.map);
@@ -129,12 +130,9 @@
 
       var centerX, centerY, tilesBefore, tilesAfter, tileCount;
 
-      // Get the drawing context from the map element
-      var context = this.map.getContext('2d');
-
       // Draw the water first
-      context.fillStyle = this.options.waterColor;
-      context.fillRect(0, 0, this.width, this.height);
+      this.context.fillStyle = this.options.waterColor;
+      this.context.fillRect(0, 0, this.width, this.height);
 
       centerX = Math.ceil((this.width / 2) - this.tile.center.x);
       centerY = Math.ceil((this.height / 2) - this.tile.center.y);
@@ -143,11 +141,11 @@
       tilesAfter = Math.ceil((this.width - (centerX + this.tile.width)) / this.tile.width);
 
       for (tileCount = 1; tileCount <= tilesBefore; tileCount++) {
-        context.drawImage(this.tile.el, centerX - (this.tile.width * tileCount), centerY);
+        this.context.drawImage(this.tile.el, centerX - (this.tile.width * tileCount), centerY);
       }
 
       for (tileCount = 1; tileCount <= tilesAfter; tileCount++) {
-        context.drawImage(this.tile.el, centerX + (this.tile.width * tileCount), centerY);
+        this.context.drawImage(this.tile.el, centerX + (this.tile.width * tileCount), centerY);
       }
 
       if (this.options.marker) {
@@ -163,7 +161,7 @@
       }
 
       // Lastly, draw the center tile
-      context.drawImage(this.tile.el, centerX, centerY);
+      this.context.drawImage(this.tile.el, centerX, centerY);
     }
 
   };
@@ -187,6 +185,9 @@
       // Determine scale of the tile based on the zoom level
       this.scale = Math.pow(2, parseInt(this.options.zoom));
 
+      // Calculate the bounds of this tile
+      this.bounds = this.getBounds();
+
       // Set the dimensions of the tile
       this.width = Math.ceil(256 * this.scale);
       this.height = Math.ceil(this.width / 1.041975309);
@@ -198,15 +199,15 @@
       this.el = document.createElement('canvas');
       this.el.width = this.width;
       this.el.height = this.height;
+      this.context = this.el.getContext('2d');
 
       // Draw the tile onto its element
       this.draw();
 
     },
 
-    // Loops through 
     getBounds: function () {
-      
+        
       var bounds = {}, coords, point;
 
       for (var i = 0; i < this.geojson.length; i++) {
@@ -227,45 +228,10 @@
       return bounds;
     },
 
-    getCenter: function () {
-      var points = this.options.markers;
-      var count = points.length;
-      var latitude;
-      var longitude;
-      var distance;
-      var x = 0;
-      var y = 0;
-      var z = 0;
-      
-      for (var i = 0; i < points.length; i++) {
-        latitude = points[i][0] * Math.PI / 180;
-        longitude = points[i][1] * Math.PI / 180;
-
-        x += Math.cos(latitude) * Math.cos(longitude);
-        y += Math.cos(latitude) * Math.sin(longitude);
-        z += Math.sin(latitude);
-      }
-
-      x /= count;
-      y /= count;
-      z /= count;
-
-      longitude = Math.atan2(y, x);
-      distance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-      latitude = Math.atan2(z, distance);
-
-      return [
-        latitude * 180 / Math.PI,
-        longitude * 180 / Math.PI
-      ];
-    },
-
     draw: function () {
         
-      var context = this.el.getContext('2d');
-        
       // Set the fill of the tile's shapes
-      context.fillStyle = this.options.landColor;
+      this.context.fillStyle = this.options.landColor;
 
       for (var i = 0; i < this.geojson.length; i++) {
         var coords = this.geojson[i].geometry.coordinates[0];
@@ -274,29 +240,28 @@
           var point = this.coordinateToPoint(coords[j][1], coords[j][0]);
           
           if (j === 0) {
-            context.beginPath();
-            context.moveTo(point.x, point.y);  
+            this.context.beginPath();
+            this.context.moveTo(point.x, point.y);  
           } else {
-            context.lineTo(point.x, point.y); 
+            this.context.lineTo(point.x, point.y); 
           }
         }
 
-        context.fill();
+        this.context.fill();
       }
     },
 
     coordinateToPoint: function (latitude, longitude) {
       
-      var bounds = this.getBounds();
       var point = this.projectCoordinate(latitude, longitude);
 
-      var xScale = this.width / Math.abs(bounds.xMax - bounds.xMin);
-      var yScale = this.height / Math.abs(bounds.yMax - bounds.yMin);
+      var xScale = this.width / Math.abs(this.bounds.xMax - this.bounds.xMin);
+      var yScale = this.height / Math.abs(this.bounds.yMax - this.bounds.yMin);
       var scale = xScale < yScale ? xScale : yScale;
 
       return {
-        x: (point.x - bounds.xMin) * scale,
-        y: (bounds.yMax - point.y) * scale
+        x: (point.x - this.bounds.xMin) * scale,
+        y: (this.bounds.yMax - point.y) * scale
       };
 
     },
@@ -312,13 +277,12 @@
   
       options = options || {};
 
-      var context = this.el.getContext('2d');
       var center = this.coordinateToPoint(point[0], point[1]);
         
-      context.beginPath();
-      context.arc(center.x, center.y, this.options.markerSize, 0, 2 * Math.PI, false);
-      context.fillStyle = this.options.markerColor;
-      context.fill();
+      this.context.beginPath();
+      this.context.arc(center.x, center.y, this.options.markerSize, 0, 2 * Math.PI, false);
+      this.context.fillStyle = this.options.markerColor;
+      this.context.fill();
 
     }
 

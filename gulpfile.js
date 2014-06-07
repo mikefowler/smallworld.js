@@ -52,13 +52,9 @@ gulp.task('dist', function () {
 
 gulp.task('docs', function () {
 	
-	gulp.src('demo/style.scss')
+	gulp.src('assets/style.scss')
 		.pipe(sass())
-		.pipe(gulp.dest('demo'));
-
-	gulp.src('demo/index.md')
-		.pipe(markdown())
-		.pipe(gulp.dest('./'));
+		.pipe(gulp.dest('assets'));
 
 });
 
@@ -90,7 +86,7 @@ gulp.task('lint', function () {
 // -----------------------------------------------------------------------------
 gulp.task('watch', function () {
 	gulp.watch('src/**/*.js', ['build']);
-	gulp.watch('demo/*.*', ['docs']);
+	gulp.watch('assets/*.*', ['docs']);
 });
 
 gulp.task('test', ['lint']);

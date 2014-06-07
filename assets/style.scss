@@ -1,19 +1,87 @@
----
----
-
 $color-slate-grey: #f1f1f1;
+
+* {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
 
 body {
   background: $color-slate-grey;
-  margin: 0 auto;
-  max-width: 40em;
   font-family: sans-serif;
-  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
-.map-default {
+ul, ol {
+	margin: 0;
+	padding: 0;
+}
+
+// ----------------------------------------------------------------------------
+// Layout
+// ----------------------------------------------------------------------------
+
+.bucket {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 800px;
+	max-width: 50rem;
+}
+
+.clear {
+	&::after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+}
+
+// ----------------------------------------------------------------------------
+// Masthead
+// ----------------------------------------------------------------------------
+
+.masthead {
+
+	
+
+}
+
+// ----------------------------------------------------------------------------
+// Examples
+// ----------------------------------------------------------------------------
+
+.example {
+	background: white;
+}
+
+.example__bucket {
+	position: relative;
+}
+
+.example__map {
+	width: 50%;
+	padding: 2em 0;
+	float: left;
+}
+
+.example__code {
+	width: 50%;
+	height: 100%;
+	position: absolute;
+	right: 0;
+
+	> * {
+		height: 100%;
+	}
+}
+
+// ----------------------------------------------------------------------------
+// Maps
+// ----------------------------------------------------------------------------
+
+.map {
   width: 300px;
-  height: 250px;
+  height: 150px;
   margin: 0 auto;
-  position: relative;
+ 	position: relative;
 }

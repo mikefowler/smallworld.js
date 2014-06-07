@@ -1,6 +1,7 @@
 {
   "name": "map-thumbnails",
   "version": "0.1.0",
+  "description": "A little utility for generating little maps of the world.",
   "homepage": "https://github.com/mikefowler/map-thumbnails",
   "main": "dist/mapstract.min.js",
   "authors": [
@@ -11,12 +12,6 @@
     "**/.*",
     "node_modules",
     "vendor",
-    "Gemfile",
-    "Gemfile.lock",
-    "index.md",
-    "_layouts",
-    "_assets",
-    "_config.yml",
     "gulpfile.js"
   ]
 }
