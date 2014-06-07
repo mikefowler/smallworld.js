@@ -1,6 +1,6 @@
 $(function () {
 
-	$.getJSON('assets/world.json', function (data) {
+	$.getJSON('dist/world.json', function (data) {
 
 		Smallworld.defaults.geojson = data;
 

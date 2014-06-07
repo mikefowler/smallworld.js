@@ -35,8 +35,8 @@ var banner = [
 gulp.task('geojson', function () {
 	gulp.src('vendor/ne_110m_land/ne_110m_land.shp')
 		.pipe(shell([
-			'rm -f assets/world.json',
-			'ogr2ogr -f "GeoJSON" -lco COORDINATE_PRECISION=1 -simplify 0.4 demo/world.json <%= file.path %>'
+			'rm -f dist/world.json',
+			'ogr2ogr -f "GeoJSON" -lco COORDINATE_PRECISION=1 -simplify 0.4 dist/world.json <%= file.path %>'
 		]));
 });
 
