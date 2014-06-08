@@ -2,16 +2,32 @@
   "name": "smallworld.js",
   "version": "0.1.0",
   "description": "A small utility for generating small world maps.",
-  "homepage": "https://github.com/mikefowler/map-thumbnails",
-  "main": "dist/smallworld.min.js",
-  "authors": [
-    "Mike Fowler <mike@mikefowler.me>"
+  "homepage": "https://mikefowler.me/smallworld.js",
+  "main": [
+    "dist/smallworld.js",
+    "dist/smallworld.jquery.js"
   ],
+  "authors": [
+    "Mike Fowler <mike@mikefowler.me> (http://mikefowler.me)"
+  ],
+  "keywords": [
+    "map",
+    "mercator",
+    "utility",
+    "jquery",
+    "zepto"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikefowler/smallworld.js.git"
+  },
   "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
     "vendor",
+    "src",
+    "assets",
     "gulpfile.js"
   ]
 }
