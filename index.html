@@ -24,7 +24,7 @@
 
 		<p><em>smallworld.js</em> is a utility for generating map overviews using GeoJSON and HTML Canvas. It was created out of a need to render simple map previews, quickly and efficiently, without strict Terms of Use and without heavy client libraries.</p>
 
-		<p>The utility has no dependencies, weighs ~5kb (sans GeoJSON), and also comes with a simple wrapper to use with jQuery or Zepto. The source is availalbe on Github or via Bower:</p>
+		<p>The utility has no dependencies, weighs ~5kb (sans GeoJSON), and also comes with a simple wrapper to use with jQuery or Zepto. The source is available on Github or via Bower:</p>
 
 		<pre><code class="language-bash">bower install smallworld.js</code></pre>
 
@@ -32,7 +32,7 @@
 
 		<h3>Default</h3>
 
-		<p>Just pass in your GeoJSON source and you're done. By default, maps are centered at [0, 0]. The map will inherit its size from the DOM element you initialize it with. If you're using the same GeoJSON for all of your maps, you can also set the data source as a default.</p>
+		<p>Just pass in your GeoJSON source and you're done. By default, maps are centered at <code>[0, 0]</code>. The map will inherit its size from the DOM element you initialize it with. If you're using the same GeoJSON for all of your maps, you can also set the data source as a default.</p>
 
 		<div class="example">
 			<div class="example__map">
@@ -65,7 +65,6 @@ $('.map').smallworld();
 
 			<div class="example__code">
 				<pre><code class="language-javascript">$('.map').smallworld({
-	geojson: data,
 	zoom: 1,
 	center: [37.757719928168605, -122.43760000000003]
 });</code></pre>
@@ -76,7 +75,7 @@ $('.map').smallworld();
 
 		<h3>Colors</h3>
 		
-		<p>Maps are rendered using native canvas elements, so changing the color of anything is easy.</p>
+		<p>Maps are drawn on the fly, so changing the color of anything is easy.</p>
 		
 		<div class="example">
 			<div class="example__map">
@@ -85,7 +84,6 @@ $('.map').smallworld();
 
 			<div class="example__code">
 				<pre><code class="language-javascript">$('.map').smallworld({
-	geojson: data,
 	center: [45, 0],
 	waterColor: '#021019',
 	landColor: '#08304b'
@@ -106,7 +104,6 @@ $('.map').smallworld();
 
 			<div class="example__code">
 				<pre><code class="language-javascript">$('.map').smallworld({
-	geojson: data,
 	marker: true,
 	markerColor: '#fa29df'
 });</code></pre>
@@ -120,7 +117,6 @@ $('.map').smallworld();
 
 			<div class="example__code">
 				<pre><code class="language-javascript">$('.map').smallworld({
-	geojson: data,
 	center: [45, 180],
 	marker: [37.757719928168605, -122.43760000000003],
 	markerSize: 8
@@ -135,7 +131,6 @@ $('.map').smallworld();
 
 			<div class="example__code">
 				<pre><code class="language-javascript">$('.map').smallworld({
-	geojson: data,
 	center: [45, -50],
 	markers: [
 		[37.757719928168605, -122.43760000000003],
@@ -160,7 +155,7 @@ var map = new Smallworld(el, options);</code></pre>
 
 		<h3>GeoJSON &amp; Technical Notes</h3>
 
-		<p>smallworld.js provides <a href="https://github.com/mikefowler/smallworld.js/blob/master/dist/world.json">one drop-in GeoJSON source</a>, the one used in the maps above. The GeoJSON data can be inlined or loaded asynchronously, so long as the data is passed in during initialization or set globally.</p>
+		<p>smallworld.js provides <a href="https://github.com/mikefowler/smallworld.js/blob/master/dist/world.json">one drop-in GeoJSON source</a>, the one used in the maps above. The GeoJSON data can be inlined or loaded asynchronously, so long as the data is passed in during initialization or set globally. The provided data is a Mercator projection.</p>
 
 		<p>This GeoJSON is generated from <a href="http://naturalearthdata.com">Natural Earth's</a> “Small-scale data, 1:110m” data set. The shape files provided by Natural Earth's are then processed by <a href="http://www.gdal.org/ogr2ogr.html">ogr2ogr</a> to convert to GeoJSON and simplify paths. You can see this conversion yourself by peeking at this <a href="https://github.com/mikefowler/smallworld.js/blob/master/gulpfile.js#L35">build task</a>. To generate your own GeoJSON with a different level of optimization, play around with the value passed in the “simplify” flag in the build task.</p>
 
