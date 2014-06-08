@@ -28,6 +28,8 @@
     "vendor",
     "src",
     "assets",
+    "index.html",
+    "package.json",
     "gulpfile.js"
   ]
 }
