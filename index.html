@@ -155,9 +155,9 @@ var map = new Smallworld(el, options);</code></pre>
 
 		<h3>GeoJSON &amp; Technical Notes</h3>
 
-		<p>smallworld.js provides <a href="https://github.com/mikefowler/smallworld.js/blob/master/dist/world.json">one drop-in GeoJSON source</a>, the one used in the maps above. The GeoJSON data can be inlined or loaded asynchronously, so long as the data is passed in during initialization or set globally. The provided data is a Mercator projection.</p>
+		<p>smallworld.js provides <a href="https://github.com/mikefowler/smallworld.js/blob/master/dist/world.json">one drop-in GeoJSON source</a>, the one used in the maps above. The GeoJSON data can be inlined or loaded asynchronously, so long as the data is passed in during initialization or set globally. The provided GeoJSON will be projected using the Mercator projection.</p>
 
-		<p>This GeoJSON is generated from <a href="http://naturalearthdata.com">Natural Earth's</a> “Small-scale data, 1:110m” data set. The shape files provided by Natural Earth's are then processed by <a href="http://www.gdal.org/ogr2ogr.html">ogr2ogr</a> to convert to GeoJSON and simplify paths. You can see this conversion yourself by peeking at this <a href="https://github.com/mikefowler/smallworld.js/blob/master/gulpfile.js#L35">build task</a>. To generate your own GeoJSON with a different level of optimization, play around with the value passed in the “simplify” flag in the build task.</p>
+		<p>This GeoJSON is generated from <a href="http://naturalearthdata.com">Natural Earth's</a> “Small-scale data, 1:110m” data set. The shape files provided by Natural Earth are then processed by <a href="http://www.gdal.org/ogr2ogr.html">ogr2ogr</a> to convert to GeoJSON and simplify paths. You can see this conversion yourself by peeking at this <a href="https://github.com/mikefowler/smallworld.js/blob/master/gulpfile.js#L35">build task</a>. To generate your own GeoJSON with a different level of optimization, play around with the value passed in the “simplify” flag in the build task.</p>
 
 		<p>In an effort to keep file size low, the GeoJSON source provided here has been optimized for viewing at zoom levels 0 and 1. While it's theoretically possible to crank the zoom level up infinitely, at a certain point, beyond zoom level 3 or 4, this utility won't be of much use as the maps will become too abstract.</p>
 
