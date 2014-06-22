@@ -285,16 +285,40 @@
     },
 
     addMarker: function (point, options) {
-  
+
+      // check if 'point' is a group of markers
+      if (!(point instanceof Array) && typeof(point) !== "number") {
+        options = options || {};
+        // make a deep copy
+        var groupOptions = {};
+        groupOptions = JSON.parse(JSON.stringify(options));
+        if (point.markerColor !== undefined) {
+          groupOptions.markerColor = point.markerColor;
+        }
+        if (point.markerSize !== undefined) {
+          groupOptions.markerSize = point.markerSize;
+        }
+        for (var i = 0; i < point.values.length; i++) {
+          this.pAddMarker(point.values[i], groupOptions);
+        }
+      } else {
+        this.pAddMarker(point, options);
+      }
+
+    },
+
+    pAddMarker: function (point, options) {
       options = options || {};
 
       var center = this.coordinateToPoint(point[0], point[1]);
-        
-      this.context.beginPath();
-      this.context.arc(center.x, center.y, this.options.markerSize, 0, 2 * Math.PI, false);
-      this.context.fillStyle = this.options.markerColor;
-      this.context.fill();
 
+      var markerSize = options.markerSize || this.options.markerSize;
+      var markerColor = options.markerColor || this.options.markerColor;
+
+      this.context.beginPath();
+      this.context.arc(center.x, center.y, markerSize, 0, 2 * Math.PI, false);
+      this.context.fillStyle = markerColor;
+      this.context.fill();
     }
 
   };
