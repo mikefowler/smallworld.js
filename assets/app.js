@@ -50,6 +50,34 @@ $(function () {
 			]
 	  });
 
+	  $('.js-marker-group').smallworld({
+	  	geojson: data,
+	  	center: [45, -50],
+	  	markers: [
+	  		{
+	  			values: [
+	  				[37.757719928168605, -122.43760000000003],
+					[51.528868434293145, -0.10159864999991441]
+	  			],
+	  			markerColor: 'blue',
+	  			markerSize: 3
+	  		},
+	  		{
+	  			values: [
+	  				[40.705960705452846, -73.9780035]
+	  			]
+	  			// use default color and size
+	  		},
+	  		{
+	  			values: [
+	  				[-27.757719928168605, 122.43760000000003]
+	  			],
+	  			markerColor: 'red'
+	  		}
+	  	],
+	  	markerColor: 'black'
+	  });
+
   });
 
 });
