@@ -3,11 +3,7 @@
   display: table;
   clear: both; }
 
-.masthead h1, .masthead h2, .btn {
-  font-family: 'Lato', 'HelveticaNeue-UltraLight', sans-serif;
-  font-weight: 100; }
-
-body {
+body, .masthead h2, .btn {
   font-family: 'Lato', 'HelveticaNeue-Regular', sans-serif;
   font-weight: 400; }
 
@@ -28,8 +24,7 @@ h1, h2, h3 {
   text-transform: uppercase; }
 
 a {
-  color: #32c1f6;
-  transition: color 0.25s ease; }
+  color: #32c1f6; }
   a:hover {
     color: #088aba; }
 
@@ -50,19 +45,21 @@ p {
 .masthead {
   background: #32c1f6;
   color: white;
-  padding: 1em 0; }
+  padding: 2em 0; }
   .masthead a {
     color: white; }
   .masthead h1 {
+    letter-spacing: 1px;
     margin: 0;
-    font-size: 56px;
-    font-size: 3.5rem;
+    font-size: 48px;
+    font-size: 3rem;
     line-height: 1; }
   .masthead h2 {
     margin-top: 0;
     font-size: 16px;
     font-size: 1.25rem;
-    text-transform: none; }
+    text-transform: none;
+    color: rgba(255, 255, 255, 0.9); }
 
 .masthead__copy {
   display: inline-block;
@@ -119,10 +116,10 @@ p {
   text-decoration: none;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 5px;
-  padding: 0.5em;
-  transition: border 0.25s ease; }
+  padding: 0.5em; }
   .btn:hover {
-    border-color: white; }
+    background: white;
+    color: #32c1f6; }
 
 .btn-small {
   font-size: 16px;

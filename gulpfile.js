@@ -8,6 +8,7 @@ var sass = require('gulp-sass');
 var header = require('gulp-header');
 var markdown = require('gulp-markdown');
 var plumber = require('gulp-plumber');
+var connect = require('gulp-connect');
 
 // -----------------------------------------------------------------------------
 // Configuration
@@ -49,6 +50,12 @@ gulp.task('dist', function () {
 		.pipe(header(banner, { pkg: pkg }))
 		.pipe(size({ title: 'Minified' }))
 		.pipe(gulp.dest(paths.dist));
+});
+
+gulp.task('serve', function () {
+	connect.server({
+		port: 4500
+	});
 });
 
 gulp.task('docs', function () {
@@ -93,4 +100,4 @@ gulp.task('watch', function () {
 
 gulp.task('test', ['lint']);
 gulp.task('build', ['test', 'dist']);
-gulp.task('default', ['build', 'docs', 'watch']);
+gulp.task('default', ['build', 'docs', 'serve', 'watch']);
