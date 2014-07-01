@@ -41,16 +41,10 @@
     return obj;
   }
 
-
-  // Polyfill requestAnimationFrame
-  root.requestAnimFrame = (function(){
-    return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            function( callback ){
-              window.setTimeout(callback, 1000 / 60);
-            };
-  }());
+  // Returns true or false indicating whether “obj” is an array object
+  function isArray (obj) {
+    return Object.prototype.toString.call(obj) === '[object Array]';
+  }
 
   // Define default options
   var defaults = {
@@ -82,8 +76,6 @@
 
     this.initialize.apply(this);
 
-    this.draw();
-
   };
 
   Smallworld.defaults = {};
@@ -91,7 +83,9 @@
   Smallworld.prototype = {
 
     initialize: function () {
-          
+      
+      var _this = this;
+
       // Set the width and height based on our element
       this.width = this.el.clientWidth;
       this.height = this.el.clientHeight;
@@ -105,10 +99,7 @@
 
       // Append the map element
       this.el.appendChild(this.map);
-
-      // Draw the map
-      this.draw();
-
+      
     },
 
     createMap: function (width, height) {
@@ -133,6 +124,7 @@
     draw: function () {
 
       var centerX, centerY, tilesBefore, tilesAfter, tileCount;
+      var markers, marker, markerCount, pointCount, i, j;
 
       // Draw the water first
       this.context.fillStyle = this.options.waterColor;
@@ -161,15 +153,33 @@
       this.context.drawImage(this.tile.el, centerX, centerY);
 
       // Add markers, if necessary
+
+      // First, if we're adding a single marker, or a marker
+      // at the geographic center of the map
       if (this.options.marker) {
-        if (this.options.marker === true) {
-          this.tile.addMarker(this.options.center);
-        } else {
-          this.tile.addMarker(this.options.marker);
-        }
+        marker = (this.options.marker === true ? this.options.center : this.options.marker);
+        this.tile.addMarker(marker);
+
+      // Next, if we're adding multiple markers
       } else if (this.options.markers) {
-        for (var i = 0; i < this.options.markers.length; i++) {
-          this.tile.addMarker(this.options.markers[i]);
+        markers = this.options.markers;
+          
+        // For each marker in the array…
+        for (i = 0, markerCount = markers.length; i < markerCount; i++) {
+          marker = markers[i];
+
+          // Support simple points (like [22, -100])…
+          if (isArray(marker)) {
+            this.tile.addMarker(marker);
+
+          // And also support marker “groups”. Groups should specify
+          // an array of points in a “points” key. Additional options
+          // to override the defaults can be passed via an “options” key.
+          } else if (marker.points && isArray(marker.points)) {
+            for (j = 0, pointCount = marker.points.length; j < pointCount; j++) {
+              this.tile.addMarker(marker.points[j], marker.options);
+            }
+          }
         }
       }
 
@@ -285,6 +295,8 @@
     },
 
     addMarker: function (point, options) {
+
+      console.log('addMarker', point, options);
   
       options = options || {};
 
